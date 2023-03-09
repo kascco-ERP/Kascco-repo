@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_inherit_sale_order_form" model="ir.ui.view">
+        <field name="name">view.inherit.sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Sale Terms &amp; Conditions">
+                    <separator string="Sale Terms Conditions Arabic" colspan="4"/>
+                        <field name="sale_terms_conditions_ar"  widget="html" force_save="1"/>
+                    <separator string="Sale Terms Conditions English" colspan="4"/>
+                        <field name="sale_terms_conditions_en"  widget="html" force_save="1"/>
+                </page>
+            </xpath>
+            <xpath expr="//page[@name='other_information']" position="after">
+                <page name="qr_code" string="QR Code" invisible="True">
+                    <group>
+                        <field name="qr_code" attrs="{'invisible': [('state', '!=', 'sale')]}" widget="image" width="200"
+                           height="200" readonly="1"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="view_inherit_res_partner_sa_vat_form" model="ir.ui.view">
+        <field name="name">view.inherit.res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- position: after|before|replace|attributes|inside -->
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="sa_vat" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="attributes">
+                <attribute name="required">1</attribute>
+                <attribute name="string">Vat</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_partner_search_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.search.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search/group" position="inside">
+                <filter string="Customers" name="customer" domain="[('category_id','=', 'Customer')]"/>
+                <filter string="Vendors" name="vendor" domain="[('category_id','=', 'Vendor')]"/>
+                <filter string="Employees" name="employee" domain="[('category_id','=', 'Employee')]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

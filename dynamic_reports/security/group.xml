@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record model="ir.module.category" id="sales_report_category">
+        <field name="name">Dynamic Reports</field>
+    </record>
+    <record id="group_dynamic_report_wizard" model="res.groups">
+        <field name="name">Dynamic Report</field>
+    </record>
+    <record id="sale.menu_sale_report" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4, ref('dynamic_reports.group_dynamic_report_wizard'))]"/>
+    </record>
+
+</odoo>

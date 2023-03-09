@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_work_monthly,access.work.monthly,model_work_monthly,base.group_user,1,1,1,1
+access_work_day,access.work.day,model_work_day,base.group_user,1,1,1,1
+access_work_hours,access.work.hours,model_work_hours,base.group_user,1,1,1,1
+access_day_label,access.day.label,model_day_label,base.group_user,1,1,1,1
+access_label_label,access.label.label,model_label_label,base.group_user,1,1,1,1
+access_month_month,access.month.month,model_month_month,base.group_user,1,1,1,1

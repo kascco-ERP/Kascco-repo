@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="view_inherit_kefah_sale_order_form" model="ir.ui.view">
+        <field name="name">kefah.sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+           <xpath expr="//group[@name='note_group']" position="replace">
+                    <group name="note_group">
+                        <group class="oe_subtotal_footer oe_right"
+                               name="sale_total">
+                            <field name="amount_untaxed" widget='monetary'
+                                   options="{'currency_field': 'currency_id'}"/>
+                            <field name="amount_tax" widget='monetary'
+                                   options="{'currency_field': 'currency_id'}"/>
+                            <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                <label for="amount_total"/>
+
+                            </div>
+                            <field name="amount_total" nolabel="1"
+                                   class="oe_subtotal_footer_separator"
+                                   widget='monetary'
+                                   options="{'currency_field': 'currency_id'}"/>
+
+                        </group>
+                    </group>
+
+                </xpath>
+            <xpath expr="//notebook/page[@name='customer_signature']" position="after">
+                <page string="Kefah" attrs="{'invisible': [('is_check', '=', False)]}" >
+                    <group>
+                        <field name="is_man_power"/>
+                    </group>
+                </page>
+            </xpath>
+
+         <xpath expr="//notebook/page[@name='other_information']//field[@name='source_id']" position="after">
+            <field name="is_check" invisible="True"/>
+          </xpath>
+        
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="is_man_power_order" attrs="{'invisible': [('is_check', '=', False)],'readonly': [('state', '!=','draft')]}"/>
+
+                 <field name="product_categ_ids" widget="many2many_tags"  attrs="{'required': [('is_man_power_order', '=', True)],'invisible': [('is_man_power_order', '=', False)]}"/> 
+             </xpath>
+
+             <xpath expr="//field[@name='sale_order_template_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+             </xpath>
+
+             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="after">
+                <field name="working_days" force_save="1" attrs="{'column_invisible': [('parent.is_man_power_order', '!=', True)],'readonly': [('state', '!=','draft')]}" />
+                <field name="working_hours" force_save="1" attrs="{'column_invisible': [('parent.is_man_power_order', '!=', True)],'readonly': [('state', '!=','draft')]}" />
+            </xpath> 
+
+             <xpath expr="//field[@name='payment_term_id']" position="after">
+            <field name="hide_unit_price"  attrs="{'invisible': [('is_man_power_order', '!=', True)]}"/>
+            </xpath> 
+
+             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                <field name="monthly_hours"  force_save="1" attrs="{'column_invisible': [('parent.is_man_power_order', '!=', True)]}"/> 
+
+                <field name="is_man_power_order"  force_save="1" attrs="{'column_invisible': [('parent.is_man_power_order', '!=', True)]}" invisible="True"/> 
+
+                <field name="month_rate"  force_save="1" attrs="{'column_invisible': [('parent.is_man_power_order', '!=', True)]}"/>
+                <field name="total_monthly"  force_save="1" attrs="{'column_invisible': [('parent.is_man_power_order', '!=', True)]}"/>
+                <field name="working_month"  force_save="1" attrs="{'column_invisible': [('parent.is_man_power_order', '!=', True)],'readonly': [('state', '!=','draft')]}"/>
+                <field name="total_add_monthly"  force_save="1" attrs="{'column_invisible': [('parent.is_man_power_order', '!=', True)]}"/>
+            </xpath> 
+        </field>
+    </record>
+
+     <record id="view_work_day_tree" model="ir.ui.view">
+            <field name="name">work.day.tree</field>
+            <field name="model">work.day</field>
+            <field name="arch" type="xml">
+                <tree string="Work Day">
+                    <field name="day"/>
+                    <field name="labels"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_work_day_form" model="ir.ui.view" >
+            <field name="name">work.day.form</field>
+            <field name="model">work.day</field>
+            <field name="arch" type="xml">
+                <form string="Work Day">
+                    <sheet>
+                        <group >
+                            <field name="day" required="True"/>
+                            <field name="labels" required="True"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="work_day_action">
+            <field name="name">Work Day</field>
+            <field name="res_model">work.day</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first Work Day 
+                </p>
+            </field>
+        </record>
+
+         <menuitem id="menu_work_day"
+            parent="sale.menu_sale_config"
+            sequence="30"
+            name="Work Day"/>
+
+        <menuitem
+                name ="Work Day"
+                id="work_day_action_menu"
+                parent="menu_work_day"
+                action="work_day_action"/>
+
+
+        <record id="view_work_hours_tree" model="ir.ui.view">
+            <field name="name">work.hours.tree</field>
+            <field name="model">work.hours</field>
+            <field name="arch" type="xml">
+                <tree string="Work Hours">
+                    <field name="hours"/>
+                    <field name="labels"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_work_hours_form" model="ir.ui.view" >
+            <field name="name">work.hours.form</field>
+            <field name="model">work.hours</field>
+            <field name="arch" type="xml">
+                <form string="Work Hours">
+                    <sheet>
+                        <group >
+                            <field name="hours" required="True"/>
+                            <field name="labels" required="True"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="work_hours_action">
+            <field name="name">Work Hours</field>
+            <field name="res_model">work.hours</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first Work Hours 
+                </p>
+            </field>
+        </record>
+
+         <menuitem id="menu_work_hours"
+            parent="sale.menu_sale_config"
+            sequence="31"
+            name="Work Hours"/>
+
+        <menuitem
+                name ="Work Hours"
+                id="work_hours_action_menu"
+                parent="menu_work_hours"
+                action="work_hours_action"/>
+
+
+
+        <record id="view_month_month_tree" model="ir.ui.view">
+            <field name="name">work.monthly.tree</field>
+            <field name="model">work.monthly</field>
+            <field name="arch" type="xml">
+                <tree string="Work Month">
+                    <field name="monthly"/>
+                    <field name="labels"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_month_month_form" model="ir.ui.view" >
+            <field name="name">work.monthly.form</field>
+            <field name="model">work.monthly</field>
+            <field name="arch" type="xml">
+                <form string="Work Month">
+                    <sheet>
+                        <group >
+                            <field name="monthly" required="True"/>
+                            <field name="labels" required="True"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="month_month_action">
+            <field name="name">Work Month</field>
+            <field name="res_model">work.monthly</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first Work Month 
+                </p>
+            </field>
+        </record>
+
+         <menuitem id="menu_work_month"
+            parent="sale.menu_sale_config"
+            sequence="31"
+            name="Work Month"/>
+
+        <menuitem
+                name ="Work Month"
+                id="work_month_action_menu"
+                parent="menu_work_month"
+                action="month_month_action"/>
+
+</odoo>

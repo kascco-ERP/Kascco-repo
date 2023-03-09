@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <template id="kefah_layout_header">
+            <div class="header">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <img t-if="company.header" t-attf-src="/web/image/res.company/#{company.id}/header"
+                             style="max-height: 150px;"/>
+                    </div>
+                </div>
+                <div t-if="company.watermark_option == 'backgroundimage'" style="opacity: 0.50;">
+                    <img t-if="company.attachment"
+                         t-att-src="'data:image/png;base64,%s' % to_text(company.attachment)"
+                         style="top:400px;position:fixed;width:100%; opacity: 0.80;height:auto;"/>
+                </div>
+
+                <div t-if ="company.watermark_option == 'logo'" style="opacity: 0.50;">
+                    <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"
+                         style="top:400px;position:fixed;width:100%; opacity: 0.50;height:auto;"/>
+                </div>
+                <t t-if="o.x_approver_ids">
+                    <t t-if="o.x_fully_approved == True">
+                        <div t-if = "company.watermark_option == 'watermark'">
+                            <t t-if="company.attachment_alignment == True and not company.font_size and not company.font_color">
+                                <span t-field="company.watermark_text" t-att-style="'transform:rotate(' + company.alignment_angle + ' deg); -webkit-transform:rotate(' + company.alignment_angle + 'deg); top:400px;position:fixed;text-align:center;width:100%;absolute;opacity:0.25; z-index:99;'"/>
+                            </t>
+                            <t t-if="company.attachment_alignment == True and company.font_size and not company.font_color">
+                                <span t-field="company.watermark_text" t-att-style="'transform:rotate(' + company.alignment_angle + ' deg); -webkit-transform:rotate(' + company.alignment_angle + 'deg);font-size:'+ company.font_size + 'px;top:500px;position:fixed;text-align:center;width:100%;absolute;opacity:0.25; z-index:99;'"/>
+                            </t>
+                            <t t-if="company.attachment_alignment == True and company.font_color and not company.font_size">
+                                <span t-field="company.watermark_text" t-att-style="'transform:rotate(' + company.alignment_angle + ' deg); -webkit-transform:rotate(' + company.alignment_angle + 'deg);color: '+ company.font_color +'; top:400px;position:fixed;text-align:center;width:100%;absolute;opacity:0.25; z-index:99;'"/>
+                            </t>
+                            <t t-if="company.attachment_alignment == True and company.font_size and company.font_color">
+                                <span t-field="company.watermark_text" t-att-style="'transform:rotate(' + company.alignment_angle + ' deg); -webkit-transform:rotate(' + company.alignment_angle + 'deg);font-size: '+ company.font_size + 'px; color: '+ company.font_color +';top:400px;position:fixed;text-align:center;width:100%;absolute;opacity:0.25; z-index:99;'"/>
+                            </t>
+                            <t t-if="company.attachment_alignment == False">
+                                <t t-if="company.font_size and not company.font_color">
+                                    <span t-field="company.watermark_text" t-att-style="'font-size:' + company.font_size + 'px;''top:400px;position:fixed;text-align:center;width:100%;absolute;opacity:0.25; z-index:99;'"/>
+                                </t>
+                                <t t-if="company.font_color and not company.font_size">
+                                    <span t-field="company.watermark_text" t-att-style="'color:' + company.font_color + ';' 'top:400px;position:fixed;text-align:center;width:100%;absolute;opacity:0.25; z-index:99;'"/>
+                                </t>
+                                <t t-if="company.font_size and company.font_color">
+                                    <span t-field="company.watermark_text" t-att-style="'font-size:' + company.font_size + 'px;' 'color:' + company.font_color + ';' 'top:400px;position:fixed;text-align:center;width:100%;absolute;opacity:0.25; z-index:99;'"/>
+                                </t>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </div>
+        </template>
+
+        <template id="kefah_layout_footer">
+            <div class="footer">
+                <img t-if="o.company_id.stamp" t-att-src="image_data_uri(o.company_id.stamp)"
+                     style="height:200px;margin-left:0px;"/>
+                <img t-if="o.qr_code" t-attf-src="data:image/*;base64,{{o.qr_code}}" style="width:150px; height:150px;float: right;"/>
+                <img t-if="company.footer" t-attf-src="/web/image/res.company/#{company.id}/footer"
+                     style="max-height:70px;width:100%;margin-left:0px;"/>
+                <div name="footer_right_column" class="col-6 text-right">
+                    <div name="pager" t-if="report_type == 'pdf'">
+                        Page:
+                        <span class="page"/>
+                        /
+                        <span class="topage"/>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+
+        <template id="kefah_layout">
+            <!-- Multicompany -->
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"/>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+
+            <t t-call="dynamic_reports.kefah_layout_header"/>
+            <t t-raw="0"/>
+            <t t-call="dynamic_reports.kefah_layout_footer"/>
+        </template>
+
+    </data>
+</odoo>

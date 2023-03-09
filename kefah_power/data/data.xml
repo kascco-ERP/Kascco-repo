@@ -1,0 +1,8 @@
+<odoo>
+    <data>
+        <record id="account_analytic_plan" model="account.analytic.plan">
+            <field name="name">Projects</field>
+            <field name="project">True</field>
+        </record>
+    </data>
+</odoo>

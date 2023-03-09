@@ -1,0 +1,62 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="inherits_users_form" model="ir.ui.view">
+        <field name="name">view.inherit.res.users.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="en_is_active" invisible="1"/>
+                <field name="ar_is_active" invisible="1"/>
+                <div class="row px-2">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="font-size: 22px;">
+                        <field name="en_first_name" placeholder="English First Name" nolabel="1"
+                               attrs="{'invisible': [('en_is_active', '=', False)]}"/>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="font-size: 22px;">
+                        <field name="en_middle_name" placeholder="English Middle Name" nolabel="1"
+                               attrs="{'invisible': [('en_is_active', '=', False)]}"/>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="font-size: 22px;">
+                        <field name="en_last_name" placeholder="English Last Name" nolabel="1"
+                               attrs="{'invisible': [('en_is_active', '=', False)]}"/>
+                    </div>
+                </div>
+                <div class="row px-2">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="font-size: 22px;">
+                        <field name="ar_first_name" placeholder="Arabic First Name" nolabel="1"
+                               attrs="{'invisible': [('ar_is_active', '=', False)]}"/>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="font-size: 22px;">
+                        <field name="ar_middle_name" placeholder="Arabic Middle Name" nolabel="1"
+                               attrs="{'invisible': [('ar_is_active', '=', False)]}"/>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="font-size: 22px;">
+                        <field name="ar_last_name" placeholder="Arabic Last Name" nolabel="1"
+                               attrs="{'invisible': [('ar_is_active', '=', False)]}"/>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <br/>
+                <label for="ar_employee_name" class="oe_edit_only" string="Arabic Name"
+                       attrs="{'invisible': [('ar_is_active', '=', True)]}"/>
+                <field name="ar_employee_name" attrs="{'invisible': [('ar_is_active', '=', True)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='login']" position="after">
+                <br/>
+                <label for="identity_id" string="Identification No"/>
+                <field name="identity_id"/>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="attrs">{'invisible': [('en_is_active', '=', True)]}
+                </attribute>
+            </xpath>
+            <xpath expr="//sheet/div[3]/label[1]" position="attributes">
+                <attribute name="attrs">{'invisible': [('en_is_active', '=', True)]}
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

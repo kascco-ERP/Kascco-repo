@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="view_inherit_sale_advance_payment_inv_form" model="ir.ui.view">
+        <field name="name">view.inherit.sale.advance.payment.inv.form</field>
+        <field name="model">sale.advance.payment.inv</field>
+        <field name="inherit_id" ref="sale.view_sale_advance_payment_inv"/>
+        <field name="arch" type="xml">
+
+            <!-- position: after|before|replace|attributes|inside -->
+            <xpath expr="//field[@name='deposit_taxes_id']" position="after">
+                <field name="is_man_power_order" invisible="1"/>
+                <field name="start_date" invisible="1"/>
+                <field name="end_date" invisible="1"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

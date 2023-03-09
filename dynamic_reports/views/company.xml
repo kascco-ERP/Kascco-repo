@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+        <record id="company_header_form" model="ir.ui.view">
+            <field name="name">view.inherit.res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <group>
+                        <field name="select_condition"/>
+                    </group>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Company Terms &amp; Conditions"
+                          attrs="{'invisible': [('select_condition','!=','company')]}">
+                    <separator string="Company Terms Conditions Arabic" colspan="4"/>
+                        <field name="company_terms_conditions_ar"  widget="html" force_save="1"/>
+                    <separator string="Company Terms Conditions English" colspan="4"/>
+                        <field name="company_terms_conditions_en"  widget="html" force_save="1"/>
+                    </page>
+                    <page string="Sale Terms &amp; Conditions"
+                          attrs="{'invisible': [('select_condition','!=','sale')]}">
+                    <separator string="Sale Terms Conditions Arabic" colspan="4"/>
+                        <field name="terms_conditions_ar"  widget="html" force_save="1"/>
+                    <separator string="Sale Terms Conditions English" colspan="4"/>
+                        <field name="terms_conditions_en"  widget="html" force_save="1"/>
+                    </page>
+                    <page string="Purchase Terms &amp; Conditions"
+                          attrs="{'invisible': [('select_condition','!=','purchase')]}">
+                    <separator string="Purchase Terms Conditions Arabic" colspan="4"/>
+                        <field name="purchase_terms_conditions_ar"  widget="html" force_save="1"/>
+                    <separator string="Purchase Terms Conditions English" colspan="4"/>
+                        <field name="purchase_terms_conditions_en"  widget="html" force_save="1"/>
+                    </page>
+                    <page string="Invoice Terms &amp; Conditions"
+                          attrs="{'invisible': [('select_condition','!=','invoice')]}">
+                    <separator string="Invoice Terms Conditions Arabic" colspan="4"/>
+                        <field name="invoice_terms_conditions_ar"  widget="html" force_save="1"/>
+                    <separator string="Invoice Terms Conditions English" colspan="4"/>
+                        <field name="invoice_terms_conditions_en"  widget="html" force_save="1"/>
+                    </page>
+                </xpath>
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="ar_company_name" placeholder="اسم الشركة"/>
+                </xpath>
+                <xpath expr="//field[@name='street2']" position="after">
+                    <field name="ar_company_street" placeholder="شارع"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Reports">
+                        <group>
+                            <group>
+                                <field name="header" filename="header_filename"
+                                       placeholder="Choose a header to import..."/>
+                                <field name="header_filename" invisible="1"/>
+<!--                            </group>-->
+<!--                            <group>-->
+                                <field name="footer" filename="footer_filename"
+                                       placeholder="Choose a footer to import..."/>
+                                <field name="footer_filename" invisible="1"/>
+<!--                            </group>-->
+<!--                            <group>-->
+                                <field name="stamp" filename="stamp_filename"
+                                       placeholder="Choose a stamp to import..."/>
+                                <field name="stamp_filename" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="watermark"/>
+                                <field name="watermark_option"
+                                       attrs="{'invisible':[('watermark','!=', True)],'required':[('watermark','=', True)]}"/>
+                                <field name="attachment" widget="image" class="oe_left oe_avatar"
+                                       attrs="{'invisible':[('watermark_option','!=', 'backgroundimage')]}"
+                                       accept=".png"/>
+                                <field name="watermark_text"  attrs="{'invisible': [('watermark_option','!=','watermark')]}"/>
+                                <field name="attachment_alignment" attrs="{'invisible': [('watermark_option','!=','watermark')]}"/>
+                                <field name="alignment_angle"
+                                       attrs="{'invisible': ['|','|','|',('attachment_alignment','!=',True),('watermark_option','=', 'logo'),('watermark_option','=','backgroundimage'),('watermark_option','!=', 'watermark')],'required': [('attachment_alignment','=',True)]}"/>
+                                <field name="font_size" attrs="{'invisible':[('watermark_option','!=', 'watermark')]}"/>
+                                <field name="font_color" widget="color"
+                                       attrs="{'invisible':[('watermark_option','!=', 'watermark')]}" placeholder="rgb"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_inherit_partner_form" model="ir.ui.view">
+            <field name="name">view.inherit.res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <h1>
+                        <field name="ar_partner_name" placeholder="اسم"/>
+                    </h1>
+                </xpath>
+                <xpath expr="//field[@name='street2']" position="after">
+                    <field name="ar_partner_street" placeholder="شارع"/>
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="customer_department_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+
+
+
+

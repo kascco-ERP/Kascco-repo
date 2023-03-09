@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', 'in', ['email_template_edi_invoice','invoice_send', 'field_account_invoice_send__is_print']),
+             ('module', '=', 'account')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+        <record id="account.email_template_edi_invoice" model="mail.template">
+            <field name="report_template" ref="dynamic_reports.invoice_pdf_report"/>
+        </record>
+        <record id="account.email_template_edi_invoice" model="mail.template">
+            <field name="report_template" ref="dynamic_reports.invoice_pdf_report"/>
+        </record>
+<!--        <record id="account.email_template_edi_invoice" model="mail.template">-->
+<!--            <field name="report_template" ref="dynamic_reports.invoice_pdf_report"/>-->
+<!--        </record>-->
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', 'in', ['email_template_edi_invoice','invoice_send', 'field_account_invoice_send__is_print']),
+             ('module', '=', 'account')]"/>
+            </function>
+            <value eval="{'noupdate': True}"/>
+        </function>
+    </data>
+</odoo>

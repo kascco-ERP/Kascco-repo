@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <report
+            id="sale_pdf_report"
+            model="sale.order"
+            string="Sale Quotation / Order Report"
+            report_type="qweb-pdf"
+            name="dynamic_reports.sale_report"
+            file="dynamic_reports.sale_report"
+            paperformat="dynamic_reports.paper_format_custom_pdf_report"
+            menu="True"
+    />
+    <report
+            id="purchase_pdf_report"
+            model="purchase.order"
+            string="Purchase Quotation / Order Report"
+            report_type="qweb-pdf"
+            name="dynamic_reports.purchase_report"
+            file="dynamic_reports.purchase_report"
+            paperformat="dynamic_reports.paper_format_custom_pdf_report"
+            menu="True"
+    />
+    <report
+            id="invoice_pdf_report"
+            model="account.move"
+            string="Invoice"
+            report_type="qweb-pdf"
+            name="dynamic_reports.invoice_report"
+            file="dynamic_reports.invoice_report"
+            paperformat="dynamic_reports.paper_format_custom_pdf_report"
+            menu="True"
+    />
+</odoo>

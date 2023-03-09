@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', 'in', ['email_template_edi_purchase','email_template_edi_purchase_done']),
+             ('module', '=', 'purchase')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+        <record id="purchase.email_template_edi_purchase" model="mail.template">
+            <field name="report_template" ref="dynamic_reports.purchase_pdf_report"/>
+        </record>
+        <record id="purchase.email_template_edi_purchase_done" model="mail.template">
+            <field name="report_template" ref="dynamic_reports.purchase_pdf_report"/>
+        </record>
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', 'in', ['email_template_edi_purchase','email_template_edi_purchase_done']),
+             ('module', '=', 'purchase')]"/>
+            </function>
+            <value eval="{'noupdate': True}"/>
+        </function>
+    </data>
+</odoo>

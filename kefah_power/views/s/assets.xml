@@ -1,0 +1,7 @@
+<odoo>
+    <template id="assets_employee_form" name="Employee Form" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/tie_kefah_customization/static/src/scss/style.scss"/>
+        </xpath>
+    </template>
+</odoo>
